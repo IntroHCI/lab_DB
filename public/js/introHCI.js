@@ -18,37 +18,49 @@ function initializePage() {
 		// get rid of 'project' from the front of the id 'project3'
 		var idNumber = projectID.substr('project'.length);
 
-		console.log("User clicked on project " + idNumber);
-
+		// this is the URL we'll call
 		var url_call = '/project/'+idNumber;
 
-		console.log('sending ajax request to: '+url_call);
-
-		$.get(url_call, function(result) {
-			console.log(result);
-
+		// How to respond to the GET request
+		function addProjectDetails(project_json) {
+			// compose the HTML
 			var new_html =
-				'<img src="'+result.image+'" class="detailsImage"></img>'+
-				'<div class="project-date">'+result.date+'</div>'+
-				'<div class="project-summary">'+result.summary+'</div>';
+				'<div class="project-date">'+project_json['date']+'</div>'+
+				'<div class="project-summary">'+project_json['summary']+'</div>'+
+				'<button class="project-delete btn btn-default" '+
+					'type="button">delete</button>';
 
+			// get the DIV to add content to
 			var details_div = $('#project' + idNumber + ' .details');
+			// add the content to the DIV
 			details_div.html(new_html);
+
+			details_div.find('.project-delete').click(function(e) {
+				$.post('/project/'+idNumber+'/delete', function() {
+					window.location.href = '/';
+				});
+			});
+		}
+
+		// issue the GET request
+		$.get(url_call, addProjectDetails);
+	});
+
+	$('#newProjectSubmitButton').click(function(e) {
+		console.log('clicked');
+		var title = $('#new-project-form #title').val();
+		var image_url = $('#new-project-form #image_url').val();
+		var date = $('#new-project-form #date').val();
+		var summary = $('#new-project-form #summary').val();
+		var json = {
+			'title': title,
+			'image': image_url,
+			'date':  date,
+			'summary': summary
+		};
+		$.post('/project/new', json, function() {
+			window.location.href = '/';
 		});
 	});
-
-	$('#colorBtn').click(function(e) {
-		console.log("User clicked on color button");
-
-		$.get('/palette', function(result) {
-			var colors = result.colors.hex;
-			console.log(colors);
-
-			$('body').css('background-color', colors[0]);
-			$('.thumbnail').css('background-color', colors[1]);
-			$('h1, h2, h3, h4, h5, h5').css('color', colors[2]);
-			$('p').css('color', colors[3]);
-			$('.project img').css('opacity', .75);
-		})
-	});
 }
+

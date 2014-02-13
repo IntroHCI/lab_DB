@@ -25,7 +25,6 @@
 		<div class="jumbotron">
 			<h1>Michael Bernstein</h1>
 			<p>human-computer interaction &middot; social computing &middot; crowdsourcing</p>
-			<button id="colorBtn" class="btn btn-primary btn-lg">Colors!</button>
 		</div>
 
 		<h4>Projects</h4>
@@ -33,16 +32,40 @@
 		<!-- img tags are images. Lorem Pixel will deliver random images; handy! -->
 		<!-- a are anchors, also known as hyperlinks. Use the href attribute to tell the browser where to go when the user clicks -->
 		{{#each projects}}
-		<div class="project" id="{{id}}">
+		<div class="project" id="project{{id}}">
 			<div class="thumbnail">
 				<a href="#">
-					<img src="images/{{image}}" alt="Lorem Pixel image" class="img">
-					<p>{{name}}</p>
+					<img src="{{image}}" alt="Lorem Pixel image" class="img project-img">
+					<p>{{title}}</p>
 				</a>
 				<div class="details"></div>
 			</div>
 		</div>
 		{{/each}}
+
+	<hr />
+
+	<form id="new-project-form" role="form">
+    <div class="form-group">
+      <label for="title">Title for New Project:</label>
+      <input type="text" class="form-control" id="title" placeholder="Project Name">
+    </div>
+    <div class="form-group">
+      <label for="image_url">Project image URL</label>
+      <input type="text" class="form-control" id="image_url" placeholder="http://www.example.com/really_cool_image.jpg">
+    </div>
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input type="text" class="form-control" id="date" placeholder="January 1">
+    </div>
+    <div class="form-group">
+      <label for="summary">Summary</label>
+      <textarea type="text" class="form-control" id="summary" rows="3" placeholder="Wow, Very Project!  So much summary!"></textarea>
+    </div>
+    <button id="newProjectSubmitButton" type="button" class="btn btn-default">Submit</button>
+  </form>
+
+	</div>
 
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="/js/bootstrap.min.js"></script>

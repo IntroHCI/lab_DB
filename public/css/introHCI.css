@@ -43,3 +43,11 @@
      margin: 10px 10px 10px 0px;
      float: left;
 }
+
+body > div.container {
+     margin-bottom: 20px;
+}
+
+.project-img {
+     max-height: 300px;
+}

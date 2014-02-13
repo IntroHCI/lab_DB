@@ -6,13 +6,18 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var handlebars = require('express3-handlebars')
+var handlebars = require('express3-handlebars');
+var mongoose = require('mongoose');
+var models = require('./models')
 
 var index = require('./routes/index');
 var project = require('./routes/project');
-var palette = require('./routes/palette');
 // Example route
 // var user = require('./routes/user');
+
+// connect mongoose to the lab7 database
+mongoose.connect('mongodb://localhost/lab7');
+models.init();
 
 var app = express();
 
@@ -39,7 +44,8 @@ if ('development' == app.get('env')) {
 // Add routes here
 app.get('/', index.view);
 app.get('/project/:id', project.projectInfo);
-app.get('/palette', palette.randomPalette);
+app.post('/project/new', project.addProject);
+app.post('/project/:id/delete', project.deleteProject);
 // Example route
 // app.get('/users', user.list);
 
