@@ -8,16 +8,16 @@ exports.projectInfo = function(req, res) { 
     .exec(respondWithProject);
 
   function respondWithProject(err, project) {
-    console.log(project[0]);
     res.json(project[0]);
   }
 }
 
 exports.addProject = function(req, res) {
-  var post_data = req.body;
-  console.log(post_data);
+  var form_data = req.body;
+  console.log(form_data);
+  form_data.title = form_data.project_title;
 
-  var new_proj = new models.Project(post_data);
+  var new_proj = new models.Project(form_data);
   new_proj.save(function(err) {
     if(err) console.log(err);
     res.send();

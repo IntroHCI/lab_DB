@@ -9,7 +9,7 @@ exports.view = function(req, res){
 
 	models.Project
 		.find()
-		.sort('id')
+		.sort('date')
 		.exec(renderProjects);
 
 	function renderProjects(err, projects) {

@@ -23,9 +23,20 @@ function initializePage() {
 
 		// How to respond to the GET request
 		function addProjectDetails(project_json) {
+			// We need to compute a display string for the date
+			// Search 'toLocaleDateString' online for more details.
+			var date_obj = new Date(project_json['date']);
+			var options = {
+				weekday: "long",
+				year: "numeric",
+				month: "long",
+				day: "numeric"
+			};
+			var display_date = date_obj.toLocaleDateString('en-US', options);
+
 			// compose the HTML
 			var new_html =
-				'<div class="project-date">'+project_json['date']+'</div>'+
+				'<div class="project-date">'+display_date+'</div>'+
 				'<div class="project-summary">'+project_json['summary']+'</div>'+
 				'<button class="project-delete btn btn-default" '+
 					'type="button">delete</button>';
@@ -53,13 +64,13 @@ function initializePage() {
 		var date = $('#new-project-form #date').val();
 		var summary = $('#new-project-form #summary').val();
 		var json = {
-			'title': title,
-			'image': image_url,
+			'project_title': title,
+			'image_url': image_url,
 			'date':  date,
 			'summary': summary
 		};
 		$.post('/project/new', json, function() {
-			window.location.href = '/';
+			window.location.href = '/'; // reload the page
 		});
 	});
 }

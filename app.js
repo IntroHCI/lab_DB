@@ -8,16 +8,18 @@ var http = require('http');
 var path = require('path');
 var handlebars = require('express3-handlebars');
 var mongoose = require('mongoose');
-var models = require('./models')
 
 var index = require('./routes/index');
 var project = require('./routes/project');
 // Example route
 // var user = require('./routes/user');
 
-// connect mongoose to the lab7 database
-mongoose.connect('mongodb://localhost/lab7');
-models.init();
+// Connect to the Mongo database, whether locally or on Heroku
+// MAKE SURE TO CHANGE THE NAME FROM 'lab7' TO ... IN OTHER PROJECTS
+var local_database_name = 'lab7';
+var local_database_uri  = 'mongodb://localhost/' + local_database_name
+var database_uri = process.env.MONGOLAB_URI || local_database_uri
+mongoose.connect(database_uri);
 
 var app = express();
 
