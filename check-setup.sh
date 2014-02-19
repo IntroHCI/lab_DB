@@ -11,7 +11,7 @@ heroku_missing="0"
 npm_missing="0"
 
 # set this to the number of the current lab
-cur_lab=6
+cur_lab=7
 
 system=$(uname -a)
 if [ "$system" == "Linux precise32 3.2.0-23-generic-pae #36-Ubuntu SMP Tue Apr 10 22:19:09 UTC 2012 i686 i686 i386 GNU/Linux" ]
@@ -40,6 +40,16 @@ if [ "$sys_vagrant" == "1" ]
 then
 # on vagrant guest
 
+  mongo_fix=$(grep "run_mongo" ~/.bash_profile | wc -l | xargs)
+
+  if [ $mongo_fix != "1" ]
+  then
+
+    echo "Adding automatic mongo start"	
+    echo -e ". ~/lab7/run_mongo.sh" >> ~/.bash_profile 	
+	
+  fi
+	
   required_pkg=( "mongo" "heroku" "node" "npm")
 
   all_present="1"
@@ -127,7 +137,7 @@ then
   fi
 
   # current lab hardcoded
-  node_status=$(cd lab4;npm ls 2>&1)
+  node_status=$(cd lab7;npm ls 2>&1)
 
   if [[ $node_status == *"UNMET DEPENDENCY"* ]]
   then
@@ -135,7 +145,7 @@ then
     echo "Attempting to repair."
     install_status=$(cd lab4; npm -y install --no-bin-links)
 
-    node_status=$(cd lab4;npm ls 2>&1)
+    node_status=$(cd lab7;npm ls 2>&1)
   
     if [[ $node_status != *"UNMET DEPENDENCY"* ]]
     then
@@ -205,7 +215,7 @@ else
   hcidirs=$(ls)
 
   # current lab hardcoded
-  for i in {1..6} 
+  for i in {1..7} 
   do
     target_dir="lab$i"
   if [[ $hcidirs == *"$target_dir"* ]]
