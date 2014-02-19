@@ -1,10 +1,15 @@
 var models = require('../models');
 
 exports.projectInfo = function(req, res) { 
-	var projectID = req.params.id;
+  var projectID = req.params.id;
 
-  // query for the specific project here
-  // send a response using res.json(...);
+  // query for the specific project and
+  // call the following callback
+
+  function afterQuery(err, projects) {
+    if(err) console.log(err);
+    res.json(projects[0]);
+  }
 }
 
 exports.addProject = function(req, res) {
