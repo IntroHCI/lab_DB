@@ -39,6 +39,9 @@ fi
 if [ "$sys_vagrant" == "1" ]
 then
 # on vagrant guest
+  
+  mkdir -p /data/db;
+  chown vagrant /data/db;
 
   mongo_fix=$(grep "run_mongo" ~/.bash_profile | wc -l | xargs)
 
@@ -46,7 +49,8 @@ then
   then
 
     echo "Adding automatic mongo start"	
-    echo -e ". ~/lab7/run_mongo.sh" >> ~/.bash_profile 	
+    echo -e ". ~/lab7/run_mongo.sh" >> ~/.bash_profile
+    . ~/lab7/run_mongo.sh
 	
   fi
 	
