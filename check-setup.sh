@@ -14,7 +14,7 @@ npm_missing="0"
 cur_lab=7
 
 system=$(uname -a)
-if [ "$system" == "Linux precise32 3.2.0-23-generic-pae #36-Ubuntu SMP Tue Apr 10 22:19:09 UTC 2012 i686 i686 i386 GNU/Linux" ]
+if [ "${system:0:15}" == "Linux precise32" ]
 then
   sys_vagrant="1"  
   echo "Running on Vagrant guest"
@@ -40,9 +40,6 @@ if [ "$sys_vagrant" == "1" ]
 then
 # on vagrant guest
   
-  mkdir -p /data/db;
-  chown vagrant /data/db;
-
   mongo_fix=$(grep "run_mongo" ~/.bash_profile | wc -l | xargs)
 
   if [ $mongo_fix != "1" ]
@@ -86,7 +83,7 @@ then
 	echo "Installing MongoDB..."
 	mongo_res=$(
 	mkdir -p /data/db;
-	chown vagrant /data/db;
+	chown vagrant:vagrant /data/db;
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10;
 	echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list;
 	apt-get update;
@@ -99,6 +96,10 @@ then
 	else
 		echo "Auto install succeeded"
 	fi
+  else
+    echo "Setting mongo directory permissions."
+    sudo mkdir -p /data/db
+    sudo chown -R vagrant:vagrant /data/db
   fi
   
   if [ "$heroku_missing" == "1" ]
