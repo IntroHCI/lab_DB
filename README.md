@@ -1,4 +1,4 @@
-lab7
+lab_DB
 ====
 
-Lab 7: Databases
+Lab_DB: Databases
