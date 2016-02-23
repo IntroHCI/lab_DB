@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -17,8 +16,8 @@ var project = require('./routes/project');
 // Connect to the Mongo database, whether locally or on Heroku
 // MAKE SURE TO CHANGE THE NAME FROM 'lab7' TO ... IN OTHER PROJECTS
 var local_database_name = 'lab7';
-var local_database_uri  = 'mongodb://localhost/' + local_database_name
-var database_uri = process.env.MONGOLAB_URI || local_database_uri
+var local_database_uri = 'mongodb://localhost/' + local_database_name;
+var database_uri = process.env.MONGOLAB_URI || local_database_uri;
 mongoose.connect(database_uri);
 
 var app = express();
@@ -40,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 }
 
 // Add routes here
@@ -51,6 +50,6 @@ app.post('/project/:id/delete', project.deleteProject);
 // Example route
 // app.get('/users', user.list);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(app.get('port'), function() {
+    console.log('Express server listening on port ' + app.get('port'));
 });

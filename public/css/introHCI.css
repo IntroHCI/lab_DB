@@ -1,53 +1,47 @@
 /* applies to anything of class "example-class-selector" */
+
 .example-class-selector {
-	margin-top: 2em;
+    margin-top: 2em;
 }
 
 /* applies to any <p> descendants of an element of class "example-class-selector" */
+
 .example-class-selector p {
-	/* Colors are in hexadecimal: http://www.colorpicker.com/ */	
-	color: #CC00AA;
+    /* Colors are in hexadecimal: http://www.colorpicker.com/ */
+    color: #CC00AA;
 }
-
 .jumbotron {
-	position: relative;
-	background: none;
+    position: relative;
+    background: none;
 }
-
 .jumbotron:after {
-     content:"";
-     background: url("../images/lorempixel.jumbotron.jpeg");
-     opacity: 0.2;
-     top: 0;
-     left: 0;
-     bottom: 0;
-     right: 0;
-     position: absolute;
-     z-index: -1;	
+    content: "";
+    background: url("../images/lorempixel.jumbotron.jpeg");
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 }
-
 .jumbotron p {
-     color: #6e6e6e;
+    color: #6e6e6e;
 }
-
 .project a {
-     text-align: center;
+    text-align: center;
 }
-
 .project .details {
-     overflow: hidden;
+    overflow: hidden;
 }
-
 .project .details .detailsImage {
-     width: 200px;
-     margin: 10px 10px 10px 0px;
-     float: left;
+    width: 200px;
+    margin: 10px 10px 10px 0px;
+    float: left;
 }
-
 body > div.container {
-     margin-bottom: 20px;
+    margin-bottom: 20px;
 }
-
 .project-img {
-     max-height: 300px;
+    max-height: 300px;
 }
